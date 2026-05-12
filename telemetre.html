@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prexys & co - Telemetre laser</title>
+  <title>Prexys & co - T&eacute;l&eacute;m&egrave;tre &agrave; ultrason</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
 <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -406,14 +406,72 @@
       .product-hub, .detail-hero { grid-template-columns: 1fr; }
       .product-popover { position: static; opacity: 1; transform: none; margin-top: .75rem; }
     }
+  
+    .ultra-stage {
+      position: relative; width: 100%; height: 100%; min-height: 360px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ultra-sensor {
+      position: absolute; left: 46px; top: 50%; transform: translateY(-50%);
+      width: 126px; height: 92px; border-radius: 18px; background: #111827;
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 32px; box-shadow: 0 18px 40px rgba(0,0,0,.16);
+    }
+    .ultra-sensor::before, .ultra-sensor::after {
+      content: ''; position: absolute; top: 28px; width: 26px; height: 26px;
+      border-radius: 50%; background: #253044; border: 3px solid #6b7280;
+    }
+    .ultra-sensor::before { left: 26px; }
+    .ultra-sensor::after { right: 26px; }
+    .ultra-wave {
+      position: absolute; left: 160px; top: 50%; height: 4px;
+      width: var(--beam-width, 220px); transform: translateY(-50%);
+      background: linear-gradient(90deg, var(--accent), rgba(0,87,255,.08));
+      border-radius: 999px; transition: width .12s ease-out;
+    }
+    .ultra-wave::before, .ultra-wave::after {
+      content: ''; position: absolute; right: 0; top: 50%;
+      width: 54px; height: 54px; border: 2px solid rgba(0,87,255,.28);
+      border-left: 0; border-radius: 0 999px 999px 0;
+      transform: translateY(-50%); animation: ultraPulse 1.2s ease-in-out infinite;
+    }
+    .ultra-wave::after { width: 86px; height: 86px; animation-delay: .2s; }
+    .ultra-obstacle {
+      position: absolute; left: var(--obstacle-left, 380px); top: 50%;
+      transform: translate(-50%, -50%); width: 46px; height: 150px;
+      border: 0; border-radius: 16px; background: var(--accent);
+      cursor: grab; box-shadow: 0 18px 36px rgba(0,87,255,.2);
+      transition: box-shadow .15s;
+    }
+    .ultra-obstacle:active { cursor: grabbing; box-shadow: 0 20px 44px rgba(0,87,255,.28); }
+    .ultra-readout {
+      position: absolute; left: 50%; bottom: 66px; transform: translateX(-50%);
+      background: var(--accent2); color: var(--accent);
+      border-radius: 999px; padding: 9px 16px; font-weight: 800;
+    }
+    .ultra-help {
+      position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+      color: var(--muted); font-size: 12px; white-space: nowrap;
+    }
+    .ultra-range {
+      position: absolute; left: 44px; right: 44px; bottom: 18px;
+      opacity: 0; pointer-events: none;
+    }
+    @keyframes ultraPulse { 0%,100% { opacity: .25; transform: translateY(-50%) scaleX(.8); } 50% { opacity: 1; transform: translateY(-50%) scaleX(1); } }
+    @media(max-width:700px){
+      .ultra-sensor { left: 24px; width: 104px; }
+      .ultra-wave { left: 126px; }
+      .ultra-help { white-space: normal; text-align: center; width: 80%; }
+    }
   </style>
 </head>
-<body><nav class="nav">
+<body>
+<nav class="nav">
   <a class="nav-logo" href="index.html">
     <span class="logo-dot"></span>Prexys <span style="font-weight:400;color:var(--muted)">&amp; co</span>
   </a>
   <div class="nav-links">
-    <a class="nav-link" href="prexys.html">Accueil</a>
+    <a class="nav-link" href="index.html">Accueil</a>
     <a class="nav-link active" href="produits.html">Produits</a>
     <a class="nav-link" href="contact.html">Contact</a>
   </div>
@@ -421,21 +479,25 @@
 <main class="detail-hero">
   <section class="detail-copy">
     <div class="section-eyebrow">Produit 3</div>
-    <h1>Telemetre laser</h1>
-    <p>Le telemetre laser mesure une distance en utilisant le principe du temps de vol. Le prototype repose sur un capteur ToF et un microcontroleur.</p>
+    <h1>T&eacute;l&eacute;m&egrave;tre &agrave; ultrason</h1>
+    <p>Le t&eacute;l&eacute;m&egrave;tre &agrave; ultrason mesure une distance en envoyant une onde sonore puis en calculant le temps avant son retour. Le prototype repose sur un capteur ultrason et un microcontroleur.</p>
     <div class="detail-list">
-        <div>Capteur ToF VL53L0X : mesure le temps de trajet du signal.</div>
+        <div>Capteur ultrason HC-SR04 : envoie une onde sonore et capte son retour.</div>
         <div>Arduino Uno : pilote le capteur et traite les informations.</div>
         <div>Ecran LCD 16x2 : affiche la distance mesuree en temps reel.</div>
         <div>Fonction : obtenir une mesure rapide et lisible entre le capteur et une cible.</div>
     </div>
     <a class="btn-primary" href="produits.html"><i class="ti ti-arrow-left" aria-hidden="true"></i> Retour aux produits</a>
   </section>
-  <section class="animation-stage" aria-label="Animation du produit Telemetre laser">
-    <div class="measure-tool"><i class="ti ti-scan" aria-hidden="true"></i></div>
-    <div class="measure-beam"></div>
-    <div class="measure-wall"></div>
-    <div class="measure-readout">2.34 m</div>
+  <section class="animation-stage" id="ultra-stage" aria-label="Animation interactive du t&eacute;l&eacute;m&egrave;tre &agrave; ultrason">
+    <div class="ultra-stage">
+      <div class="ultra-sensor" aria-hidden="true"><i class="ti ti-wave-sine" aria-hidden="true"></i></div>
+      <div class="ultra-wave" id="ultra-wave"></div>
+      <button class="ultra-obstacle" id="ultra-obstacle" type="button" aria-label="Obstacle a deplacer"></button>
+      <div class="ultra-readout">Distance : <span id="ultra-distance">2.34</span> m</div>
+      <div class="ultra-help">Deplacez l'obstacle pour changer la distance mesuree.</div>
+      <input class="ultra-range" id="ultra-range" type="range" min="40" max="320" value="234" aria-label="Distance de l'obstacle"/>
+    </div>
   </section>
 </main>
 <footer>
@@ -449,11 +511,11 @@
         <h4>Produits</h4>
         <a href="lightphone.html">Lightphone</a>
         <a href="barriere-infrarouge.html">Barriere infrarouge</a>
-        <a href="telemetre.html">Telemetre laser</a>
+        <a href="telemetre.html">T&eacute;l&eacute;m&egrave;tre &agrave; ultrason</a>
       </div>
       <div class="footer-col">
         <h4>Entreprise</h4>
-        <a href="prexys.html">Accueil</a>
+        <a href="index.html">Accueil</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="footer-col">
@@ -469,5 +531,52 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const ultraStage = document.getElementById('ultra-stage');
+  const ultraObstacle = document.getElementById('ultra-obstacle');
+  const ultraWave = document.getElementById('ultra-wave');
+  const ultraDistance = document.getElementById('ultra-distance');
+  const ultraRange = document.getElementById('ultra-range');
+
+  function setUltrasonicDistance(cm) {
+    const value = Math.max(40, Math.min(320, Number(cm)));
+    const stageRect = ultraStage.getBoundingClientRect();
+    const sensorX = 160;
+    const maxCm = 320;
+    const minCm = 40;
+    const usableWidth = Math.max(170, stageRect.width - 250);
+    const ratio = (value - minCm) / (maxCm - minCm);
+    const obstacleLeft = sensorX + 70 + usableWidth * ratio;
+    const beamWidth = Math.max(50, obstacleLeft - sensorX - 22);
+
+    ultraObstacle.style.setProperty('--obstacle-left', obstacleLeft + 'px');
+    ultraWave.style.setProperty('--beam-width', beamWidth + 'px');
+    ultraDistance.textContent = (value / 100).toFixed(2);
+    ultraRange.value = value;
+  }
+
+  function distanceFromPointer(clientX) {
+    const rect = ultraStage.getBoundingClientRect();
+    const x = Math.max(230, Math.min(rect.width - 70, clientX - rect.left));
+    const ratio = (x - 230) / Math.max(1, rect.width - 300);
+    return Math.round(40 + ratio * 280);
+  }
+
+  if (ultraStage && ultraObstacle && ultraWave && ultraDistance && ultraRange) {
+    setUltrasonicDistance(234);
+    ultraRange.addEventListener('input', () => setUltrasonicDistance(ultraRange.value));
+    ultraObstacle.addEventListener('pointerdown', (event) => {
+      ultraObstacle.setPointerCapture(event.pointerId);
+      setUltrasonicDistance(distanceFromPointer(event.clientX));
+    });
+    ultraObstacle.addEventListener('pointermove', (event) => {
+      if (ultraObstacle.hasPointerCapture(event.pointerId)) {
+        setUltrasonicDistance(distanceFromPointer(event.clientX));
+      }
+    });
+    window.addEventListener('resize', () => setUltrasonicDistance(ultraRange.value));
+  }
+</script>
 </body>
 </html>
